@@ -28,7 +28,7 @@ namespace data
 		Entity() {};
 		virtual ~Entity() {};
 		virtual EntityType GetEntityType() = 0;
-		virtual void GetBoundingBox(double min[], double max[]) = 0;
+		virtual void GetBoundingBox(double min[], double max[]) const = 0;
 		virtual void Transform(const Matrix& mat) = 0;
 	};
 }

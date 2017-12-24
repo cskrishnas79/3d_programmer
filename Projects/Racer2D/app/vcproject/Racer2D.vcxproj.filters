@@ -57,6 +57,27 @@
     <ClCompile Include="..\src\engine\engine.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\data\display.cpp">
+      <Filter>Source Files\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\data\geom.cpp">
+      <Filter>Source Files\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\data\topo.cpp">
+      <Filter>Source Files\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\data\utility.cpp">
+      <Filter>Source Files\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\viewer\viewer.cpp">
+      <Filter>Source Files\viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\logic\logic.cpp">
+      <Filter>Source Files\logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\viewer\vieweropts.cpp">
+      <Filter>Source Files\viewer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\math\vector.h">
@@ -76,6 +97,27 @@
     </ClInclude>
     <ClInclude Include="..\src\engine\engine.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\data\display.h">
+      <Filter>Header Files\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\data\geom.h">
+      <Filter>Header Files\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\data\topo.h">
+      <Filter>Header Files\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\data\utility.h">
+      <Filter>Header Files\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\viewer\viewer.h">
+      <Filter>Header Files\viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\logic\logic.h">
+      <Filter>Header Files\logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\viewer\vieweropts.h">
+      <Filter>Header Files\viewer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
