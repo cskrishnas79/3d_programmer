@@ -40,12 +40,12 @@ bool Engine::Initialize(int argc, char* argv[])
 		return bRes;
 
 	// the second argument is the game object file
-	/*
+	
 	std::string objFile = argv[1];
 	bRes = m_logic->Initialize(objFile);
 	if (bRes == false)
 		return bRes;
-	*/
+	
 	return true;
 }
 

@@ -10,9 +10,9 @@ namespace data
 {
 	enum class DisplayType
 	{
-		FILL_TYPE,
-		LINE_TYPE,
-		POINT_TYPE
+		DISPLY_FILL,
+		DISPLY_LINE,
+		DISPLY_POINT
 	};
 
 	class Display

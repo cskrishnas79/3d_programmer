@@ -1,0 +1,150 @@
+Objects
+1
+Object
+{
+	Assembly
+	{
+		Name
+		Car
+		Component
+		{
+			Part
+			{
+				Name
+				Body
+				Shape
+				{
+					Rectangle
+					Center
+					0.0 0.0 0.0
+					Width
+					10.0
+					Height
+					3.0
+				}
+				Transformation
+				{
+					Translate
+					0.0 0.0 0.0
+				}
+				Display
+				{
+					Color
+					1.0 0.0 1.0
+					Line Width
+					2.0
+					Polygon Mode
+					Fill
+				}
+			}
+			Part
+			{
+				Name
+				Roof
+				Shape
+				{
+					Rectangle
+					Center
+					0.0 0.0 0.0
+					Width
+					6.0
+					Height
+					3.0
+				}
+				Transformation
+				{
+					Translate
+					0.0 3.0 0.0
+				}
+				Display
+				{
+					Color
+					1.0 0.0 1.0
+					Line Width
+					2.0
+					Polygon Mode
+					Fill
+				}
+			}
+			Part
+			{
+				Name
+				Front Wheel
+				Shape
+				{
+					Circle
+					Center
+					0.0 0.0 0.0
+					Radius
+					1.5
+				}
+				Transformation
+				{
+					Translate
+					-2.5 -1.5 0.0
+				}
+				Display
+				{
+					Color
+					0.0 0.0 1.0
+					Line Width
+					2.0
+					Polygon Mode				
+					Line
+				}
+			}
+			Part
+			{
+				Name
+				Rear Wheel
+				Shape
+				{
+					Circle
+					Center
+					0.0 0.0 0.0
+					Radius
+					1.5
+				}
+				Transformation
+				{
+					Translate
+					2.5 -1.5 0.0
+				}
+				Display
+				{
+					Color
+					0.0 0.0 1.0
+					Line Width
+					2.0
+					Polygon Mode				
+					Line
+				}
+			}
+		}
+	}
+	Path
+	{
+		Part
+		{
+			Name
+			line
+			Shape
+			{
+				Line
+				Start
+				100.0 0.0 0.0
+				End
+				-100.0 0.0 0.0
+			}
+			Display
+			{
+				Color
+				0.0 0.0 0.0
+				Line Width
+				2.0
+			}
+		}
+	}
+	Speed
+	3.0
+}

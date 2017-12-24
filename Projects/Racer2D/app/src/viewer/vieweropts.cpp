@@ -4,20 +4,8 @@
 //
 //------------------------------------------------------------------
 #include "viewer\vieweropts.h"
-
-#define DOT				'.'
-#define VIW				"viw"
-#define VIEW_NAME		"Racer 2D"
-
-#define OPEN_TAG		"{"
-#define CLOSE_TAG		"}"
-// Window attributes
-#define WINDOW			"Window"
-#define WINDOW_WIDTH	"Width"
-#define WINDOW_HEIGHT	"Height"
-#define WINDOW_TOP		"Top"
-#define WINDOW_LEFT		"Left"
-#define WINDOW_COLOR	"Color"
+#include "utils\utils.h"
+#include "utils\defines.h"
 
 ViewerOpts::ViewerOpts() : m_window_width(1000), m_window_height(600), m_viewName(VIEW_NAME)
 {
@@ -31,51 +19,51 @@ ViewerOpts::~ViewerOpts()
 bool ViewerOpts::ReadWindowOptions(std::ifstream& file)
 {
 	bool bRes = false;
-	std::string buffer("");
-	getline(file, buffer);
+	std::string buffer(EMPTY_TAG);
+	StrUtils::GetLine(file, buffer);
 
 	if (buffer != OPEN_TAG)
 		return bRes;
 
 	do
 	{
-		getline(file, buffer);
+		StrUtils::GetLine(file, buffer);
 		if (buffer == WINDOW_WIDTH)
 		{
-			std::string str("");
-			getline(file, str);
+			std::string str(EMPTY_TAG);
+			StrUtils::GetLine(file, str);
 
 			std::string::size_type sz;
 			m_window_width = std::stoi(str, &sz);
 		}
 		else if (buffer == WINDOW_HEIGHT)
 		{
-			std::string str("");
-			getline(file, str);
+			std::string str(EMPTY_TAG);
+			StrUtils::GetLine(file, str);
 
 			std::string::size_type sz;
 			m_window_height = std::stoi(str, &sz);
 		}
 		else if (buffer == WINDOW_TOP)
 		{
-			std::string str("");
-			getline(file, str);
+			std::string str(EMPTY_TAG);
+			StrUtils::GetLine(file, str);
 
 			std::string::size_type sz;
 			m_intial_pos[1] = std::stoi(str, &sz);
 		}
 		else if (buffer == WINDOW_LEFT)
 		{
-			std::string str("");
-			getline(file, str);
+			std::string str(EMPTY_TAG);
+			StrUtils::GetLine(file, str);
 
 			std::string::size_type sz;
 			m_intial_pos[0] = std::stoi(str, &sz);
 		}
 		else if (buffer == WINDOW_COLOR)
 		{
-			std::string str("");
-			getline(file, str);
+			std::string str(EMPTY_TAG);
+			StrUtils::GetLine(file, str);
 
 			std::string::size_type sz;
 			m_backColor[0] = std::stof(str, &sz);		// R value
@@ -105,8 +93,8 @@ bool ViewerOpts::ReadOptions(const std::string& optFile)
 
 	do
 	{
-		std::string buffer("");
-		getline(file, buffer);
+		std::string buffer(EMPTY_TAG);
+		StrUtils::GetLine(file, buffer);
 
 		if (buffer == WINDOW)
 		{

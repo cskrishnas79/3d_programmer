@@ -10,7 +10,7 @@ namespace data
 	Display::Display()
 	{
 		m_lineWidth = 1.0f;							 // default width
-		m_mode		= DisplayType::LINE_TYPE;		 // default is line
+		m_mode		= DisplayType::DISPLY_LINE;		 // default is line
 		m_color[0]	= m_color[1] = m_color[2] = 0.0; // default is black color
  	}
 

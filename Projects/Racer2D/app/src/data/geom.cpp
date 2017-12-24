@@ -18,7 +18,7 @@ namespace data
 
 	EntityType Geom::GetEntityType()
 	{
-		return EntityType::GEOM;
+		return EntityType::ENT_GEOM;
 	}
 	//------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ namespace data
 
 	GeomType Point::GetType() const
 	{
-		return GeomType::POINT;
+		return GeomType::GEOM_POINT;
 	}
 
 	void Point::GetBoundingBox(double min[], double max[]) const
@@ -93,13 +93,23 @@ namespace data
 
 	GeomType Line::GetType() const
 	{
-		return GeomType::LINE;
+		return GeomType::GEOM_LINE;
 	}
 
 	void Line::GetBoundingBox(double min[], double max[]) const
 	{
-		min[0] = m_p1.m_x; min[1] = m_p1.m_y; min[2] = m_p1.m_z;
-		max[0] = m_p2.m_x; max[1] = m_p2.m_y; max[2] = m_p2.m_z;
+		min[0] = max[0] = m_p1.m_x;
+		min[1] = max[1] = m_p1.m_y;
+		min[2] = max[2] = m_p1.m_z;
+
+		// now check with next point
+		min[0] = MIN(m_p2.m_x, min[0]);
+		min[1] = MIN(m_p2.m_y, min[1]);
+		min[2] = MIN(m_p2.m_z, min[2]);
+
+		max[0] = MAX(m_p2.m_x, max[0]);
+		max[1] = MAX(m_p2.m_y, max[1]);
+		max[2] = MAX(m_p2.m_z, max[2]);
 	}
 
 	void Line::Transform(const Matrix& mat)
@@ -195,7 +205,7 @@ namespace data
 
 	GeomType Rectangle::GetType() const
 	{
-		return GeomType::RECTANGLE;
+		return GeomType::GEOM_RECTANGLE;
 	}
 
 	void Rectangle::GetBoundingBox(double min[], double max[]) const
@@ -267,7 +277,7 @@ namespace data
 
 	GeomType Circle::GetType() const
 	{
-		return GeomType::CIRCLE;
+		return GeomType::GEOM_CIRCLE;
 	}
 
 	void Circle::GetBoundingBox(double min[], double max[]) const
@@ -322,7 +332,7 @@ namespace data
 
 	GeomType Polygon::GetType() const
 	{
-		return GeomType::POLYGON;
+		return GeomType::GEOM_POLYGON;
 	}
 
 	void Polygon::GetBoundingBox(double min[], double max[]) const

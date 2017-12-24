@@ -18,7 +18,7 @@ namespace data
 
 	EntityType Topo::GetEntityType()
 	{
-		return EntityType::TOPO;
+		return EntityType::ENT_TOPO;
 	}
 
 	void Topo::SetDisplay(const Display& disply)
@@ -61,7 +61,7 @@ namespace data
 
 	TopoType Part::GetType() const
 	{
-		return TopoType::PART;
+		return TopoType::TOPO_PART;
 	}
 
 	void Part::GetBoundingBox(double min[], double max[]) const
@@ -91,7 +91,7 @@ namespace data
 
 	TopoType Assembly::GetType() const
 	{
-		return TopoType::ASSEMBLY;
+		return TopoType::TOPO_ASSEMBLY;
 	}
 
 	void Assembly::GetBoundingBox(double min[], double max[]) const

@@ -17,8 +17,8 @@ namespace data
 {
 	enum class EntityType
 	{
-		GEOM,
-		TOPO,
+		ENT_GEOM,
+		ENT_TOPO,
 	};
 
 	// Base class for all types of data

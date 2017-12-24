@@ -8,6 +8,7 @@
 
 #include "viewer\Iviewer.h"
 
+class IGraphic;
 class Viewer : public IViewer
 {
 public:
@@ -24,6 +25,7 @@ public:
 private:
 
 	std::weak_ptr<ILogic> m_pLogic;
+	std::shared_ptr<IGraphic> m_pGraphicObj;
 };
 #endif // VIEWER_H
 //------------------------------------------------------------------

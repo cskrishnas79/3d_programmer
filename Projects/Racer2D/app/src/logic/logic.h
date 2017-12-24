@@ -6,6 +6,7 @@
 #ifndef LOGIC_H
 #define LOGIC_H
 
+#include "logic\object\object.h"
 #include "viewer\Iviewer.h"
 
 class Logic : public ILogic
@@ -24,6 +25,7 @@ private:
 
 private:
 	std::weak_ptr<IViewer> m_viewer;
+	std::vector<std::shared_ptr<Object> > m_objects;
 };
 #endif // LOGIC_H
 //------------------------------------------------------------------

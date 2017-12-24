@@ -12,11 +12,11 @@ namespace data
 {
 	enum class GeomType
 	{
-		POINT,
-		LINE,
-		RECTANGLE,
-		CIRCLE,
-		POLYGON
+		GEOM_POINT,
+		GEOM_LINE,
+		GEOM_RECTANGLE,
+		GEOM_CIRCLE,
+		GEOM_POLYGON
 	};
 
 	class Entity;

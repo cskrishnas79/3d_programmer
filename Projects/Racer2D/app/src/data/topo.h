@@ -15,8 +15,8 @@ namespace data
 	// Data type for holding data (Topology)
 	enum class TopoType
 	{
-		PART,
-		ASSEMBLY,
+		TOPO_PART,
+		TOPO_ASSEMBLY,
 	};
 
 	class Entity;

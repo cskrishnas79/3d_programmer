@@ -1,0 +1,114 @@
+Objects
+2
+Object
+{
+	Part
+	{
+		Name
+		Rectangle
+		Shape
+		{
+			Rectangle
+			Center
+			0.0 0.0 0.0
+			Width
+			20.0
+			Height
+			5.0
+		}
+		Transformation
+		{
+			Translate
+			0.0 0.0 0.0
+		}
+		Display
+		{
+			Color
+			1.0 0.0 1.0
+			Line Width
+			2.0
+			Polygon Mode
+			Line
+		}
+	}
+	Path
+	{
+		Part
+		{
+			Name
+			line
+			Shape
+			{
+				Line
+				Start
+				100.0 0.0 0.0
+				End
+				-100.0 0.0 0.0
+			}
+			Display
+			{
+				Color
+				0.0 0.0 0.0
+				Line Width
+				2.0
+			}
+		}
+	}
+	Speed
+	5.0
+}
+Object
+{
+	Part
+	{
+		Name
+		Circle
+		Shape
+		{
+			Circle
+			Center
+			0.0 0.0 0.0
+			Radius
+			20.0
+		}
+		Transformation
+		{
+			Translate
+			0.0 0.0 0.0
+		}
+		Display
+		{
+			Color
+			1.0 0.0 0.0
+			Line Width
+			2.0
+			Polygon Mode
+			Line
+		}
+	}		
+	Path
+	{
+		Part
+		{
+			Name
+			straight line
+			Shape
+			{
+				Line
+				Start
+				-100.0 0.0 0.0
+				End
+				100.0 0.0 0.0
+			}
+			Display
+			{
+				Color
+				0.0 0.0 0.0
+				Line Width
+				2.0
+			}
+		}
+	}
+	Speed
+	5.0
+}

@@ -43,6 +43,30 @@
     <Filter Include="Source Files\engine">
       <UniqueIdentifier>{a280e50e-19d3-4031-b2af-eb7f3a7c6beb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\viewer\graphic">
+      <UniqueIdentifier>{99127b28-35d5-4273-b7ed-eba6897864a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\viewer\graphic">
+      <UniqueIdentifier>{b6b73e25-48d8-40bb-9776-d21d2353319f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\reader">
+      <UniqueIdentifier>{dea3ad62-ab60-4991-856d-5359dfbc3623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\reader">
+      <UniqueIdentifier>{36248ccb-37d0-46c5-bd73-6b436f1a31e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\logic\object">
+      <UniqueIdentifier>{1a6a79da-5f73-41f9-a868-395e6c199386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logic\object">
+      <UniqueIdentifier>{4495f471-2231-4090-a0ac-b6284809017e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{64a2a481-6541-42ef-b556-c0dc0fca2818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{2c7c3658-b30c-4bb2-aaee-c076341603f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Racer2D.cpp">
@@ -77,6 +101,24 @@
     </ClCompile>
     <ClCompile Include="..\src\viewer\vieweropts.cpp">
       <Filter>Source Files\viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\viewer\graphic\glgraphic.cpp">
+      <Filter>Source Files\viewer\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\viewer\graphic\globject.cpp">
+      <Filter>Source Files\viewer\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\logic\object\object.cpp">
+      <Filter>Source Files\logic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\reader\reader.cpp">
+      <Filter>Source Files\reader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\reader\txtformat.cpp">
+      <Filter>Source Files\reader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\utils.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +160,33 @@
     </ClInclude>
     <ClInclude Include="..\src\viewer\vieweropts.h">
       <Filter>Header Files\viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\viewer\graphic\Igraphic.h">
+      <Filter>Header Files\viewer\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\viewer\graphic\glgraphic.h">
+      <Filter>Header Files\viewer\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\viewer\graphic\globject.h">
+      <Filter>Header Files\viewer\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\reader\format.h">
+      <Filter>Header Files\reader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\reader\reader.h">
+      <Filter>Header Files\reader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\reader\txtformat.h">
+      <Filter>Header Files\reader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\logic\object\object.h">
+      <Filter>Header Files\logic\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\defines.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
