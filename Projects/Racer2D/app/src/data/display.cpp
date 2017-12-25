@@ -9,6 +9,7 @@ namespace data
 {
 	Display::Display()
 	{
+		m_pointSize = 2.0f;							 // default size
 		m_lineWidth = 1.0f;							 // default width
 		m_mode		= DisplayType::DISPLY_LINE;		 // default is line
 		m_color[0]	= m_color[1] = m_color[2] = 0.0; // default is black color
@@ -24,6 +25,7 @@ namespace data
 		m_color[1]	= disply.m_color[1];
 		m_color[2]	= disply.m_color[2];
 		m_lineWidth = disply.m_lineWidth;
+		m_pointSize = disply.m_pointSize;
 		m_mode		= disply.m_mode;
 	}
 
@@ -33,6 +35,7 @@ namespace data
 		m_color[1]	= disply.m_color[1];
 		m_color[2]	= disply.m_color[2];
 		m_lineWidth = disply.m_lineWidth;
+		m_pointSize = disply.m_pointSize;
 		m_mode		= disply.m_mode;
 		return (*this);
 	}

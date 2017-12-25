@@ -24,5 +24,20 @@ public:
 	bool Rectangle(const std::shared_ptr<data::Geom>& pGeom);
 	bool Polygon(const std::shared_ptr<data::Geom>& pGeom);
 };
+
+class GLDisplay
+{
+public:
+	GLDisplay();
+	~GLDisplay();
+
+	void Display(const std::shared_ptr<data::Topo>& pTopo);
+
+private:
+	GLdouble m_color[3];
+	GLfloat m_lineWidth;
+	GLfloat m_pointSize;
+	GLint m_polygonMode[2];
+};
 #endif // GL_OBJECT_H
 //------------------------------------------------------------------

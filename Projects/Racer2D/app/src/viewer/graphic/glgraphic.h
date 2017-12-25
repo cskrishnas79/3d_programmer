@@ -27,16 +27,21 @@ private:
 	static void MouseButtonFunc(int button, int state, int x, int y);
 	static void MouseWheelFunc(int wheel, int direction, int x, int y);
 	static void UpdateFunc(int value);
+	static void KeyBoardFunc(unsigned char key, int x, int y);
+	static void CloseFunc();
 
 	// Initialize and Clear OpenGL
 	bool InitializeGL(const ViewerOpts& vOptions);
 	bool ClearGL();
 
-	// View and Mouse events
+	// View events
 	void DrawView();
 	void ResizeView(int width, int height);
+
+	// Key and Mouse events
 	void MouseButtonEvent(int button, int state, int x, int y);
 	void MouseWheelEvent(int wheel, int direction, int x, int y);
+	void KeyBoardEvent(unsigned char key, int x, int y);
 
 	// Drawing Topo and geom using opengl calls
 	bool Draw(const std::shared_ptr<data::Entity>& pObj);
@@ -53,6 +58,7 @@ private:
 	int m_ypos;
 	double m_zoom;
 	double m_center[3];
+	bool m_bPause;
 };
 #endif // GL_GRAPHIC_H
 //------------------------------------------------------------------

@@ -26,6 +26,7 @@ namespace data
 	public:
 		double m_color[3];
 		float m_lineWidth;
+		float m_pointSize;
 		DisplayType m_mode;
 	};
 }

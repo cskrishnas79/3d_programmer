@@ -39,18 +39,34 @@ void GLGraphic::MouseWheelFunc(int wheel, int direction, int x, int y)
 
 void GLGraphic::UpdateFunc(int value)
 {
-	if (g_pGraphic != nullptr)
+	if (glutGetWindow() == 0 || g_pGraphic == nullptr)
+		return;
+
+	if (g_pGraphic->m_bPause == false)
 	{
 		if (g_pGraphic->UpdateListerner() == false)
 			return;
+		else
+			glutPostRedisplay();
 	}
-
-	glutPostRedisplay();
 	glutTimerFunc(REFRESH_TIME, UpdateFunc, 0);
+}
+
+void GLGraphic::KeyBoardFunc(unsigned char key, int x, int y)
+{
+	if (g_pGraphic != nullptr)
+		g_pGraphic->KeyBoardEvent(key, x, y);
+}
+
+void GLGraphic::CloseFunc()
+{
+	if (g_pGraphic != nullptr)
+		g_pGraphic->ClearGL();
 }
 // End of call back function implementation
 
-GLGraphic::GLGraphic(Viewer* pViewer) : m_xpos(0), m_ypos(0), m_zoom(150.0f), IGraphic(pViewer)
+GLGraphic::GLGraphic(Viewer* pViewer) : m_xpos(0), m_ypos(0), m_zoom(150.0f), m_bPause(true),
+										IGraphic(pViewer)
 {
 	m_center[0] = m_center[1] = m_center[2] = 0.0f;
 }
@@ -72,6 +88,12 @@ bool GLGraphic::InitializeGL(const ViewerOpts& vOptions)
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	g_pGraphic = this;
+
+	// Set default color, size and mode
+	glColor3d(0.5, 0.5, 0.5);
+	glPointSize(2.0f);
+	glLineWidth(2.0f);
+	glPolygonMode(GL_FRONT, GL_LINE);
 	return true;
 }
 
@@ -143,13 +165,32 @@ void GLGraphic::MouseWheelEvent(int wheel, int direction, int x, int y)
 	}
 }
 
+void GLGraphic::KeyBoardEvent(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+	case 32: {
+		// if space key is pressed change the state
+		m_bPause = !m_bPause;
+		break;
+	}
+	case 27: {
+		// if escape key is pressed exit application
+		glutLeaveMainLoop();
+		break;
+	}
+	default:
+		break;
+	}
+}
+
 bool GLGraphic::DrawTopo(const std::shared_ptr<data::Topo>& pTopo)
 {
 	bool bRes = false;
 	if (pTopo->GetType() == data::TopoType::TOPO_ASSEMBLY)
 	{
 		std::shared_ptr<data::Assembly> pAssem = std::dynamic_pointer_cast<data::Assembly>(pTopo);
-		for (auto inst : pAssem->m_components)
+		for (const auto& inst : pAssem->m_components)
 		{
 			std::shared_ptr<data::Topo> pTopo = std::dynamic_pointer_cast<data::Topo>(inst);
 			bRes = DrawTopo(pTopo);
@@ -157,16 +198,10 @@ bool GLGraphic::DrawTopo(const std::shared_ptr<data::Topo>& pTopo)
 	}
 	else if (pTopo->GetType() == data::TopoType::TOPO_PART)
 	{
+		GLDisplay display;
+		display.Display(pTopo);
+
 		std::shared_ptr<data::Part> pPart = std::dynamic_pointer_cast<data::Part>(pTopo);
-
-		glColor3d(pPart->m_display.m_color[0], pPart->m_display.m_color[1], pPart->m_display.m_color[2]);
-		glLineWidth(pPart->m_display.m_lineWidth);
-
-		glPolygonMode(GL_FRONT, GL_FILL);
-		if (pPart->m_display.m_mode == data::DisplayType::DISPLY_LINE)
-			glPolygonMode(GL_FRONT, GL_LINE);
-		else if (pPart->m_display.m_mode == data::DisplayType::DISPLY_POINT)
-			glPolygonMode(GL_FRONT, GL_POINT);
 
 		const double* val = pPart->m_transform.get();
 		glPushMatrix();
@@ -243,8 +278,10 @@ bool GLGraphic::Initialize(const ViewerOpts& vOptions)
 	glutDisplayFunc(Display);
 	glutMouseFunc(MouseButtonFunc);
 	glutMouseWheelFunc(MouseWheelFunc);
-	glutTimerFunc(500, UpdateFunc, 0);
+	glutKeyboardFunc(KeyBoardFunc);
+	glutTimerFunc(REFRESH_TIME, UpdateFunc, 0);
 	glutIdleFunc(nullptr);
+	glutCloseFunc(CloseFunc);
 
 	// Set action on window close for main loop return to the calling function
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
@@ -257,8 +294,7 @@ bool GLGraphic::Initialize(const ViewerOpts& vOptions)
 bool GLGraphic::Show()
 {
 	glutMainLoop();
-	// Clear OpenGL
-	return ClearGL();
+	return true;
 }
 
 bool GLGraphic::AddToGraphic(const std::vector<std::shared_ptr<data::Entity> >& objs)

@@ -45,6 +45,7 @@
 #define DISPLAY			"Display"
 #define	COLOR			"Color"
 #define	LINEWIDTH		"Line Width"
+#define	POINTSIZE		"Point Size"
 #define	POLYGONMODE		"Polygon Mode"
 #define	FILLMODE		"Fill"
 #define	LINEMODE		"Line"

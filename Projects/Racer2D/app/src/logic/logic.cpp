@@ -16,6 +16,14 @@ Logic::~Logic()
 
 bool Logic::Simulate()
 {
+	int len = (int)m_objects.size();
+	if (len == 0)
+		return false;
+
+	for (const auto& obj : m_objects)
+	{
+		obj->Update();
+	}
 	return true;
 }
 
@@ -27,7 +35,7 @@ bool Logic::Initialize(const std::string& objFile)
 		return false;
 
 	std::vector<std::shared_ptr<data::Entity> > entities;
-	for (auto obj : m_objects)
+	for (const auto& obj : m_objects)
 	{
 		obj->Initialize();
 
@@ -35,7 +43,7 @@ bool Logic::Initialize(const std::string& objFile)
 #ifdef _DEBUG
 		entities.push_back(obj->m_objBody->m_boxGeom);
 #endif
-		for (auto path : obj->m_objPaths)
+		for (const auto& path : obj->m_objPaths)
 			entities.push_back(path);
 	}
 	
@@ -50,13 +58,13 @@ bool Logic::Update()
 		return false;
 
 	std::vector<std::shared_ptr<data::Entity> > entities;
-	for (auto obj : m_objects)
+	for (const auto& obj : m_objects)
 	{
 		entities.push_back(obj->m_objBody);
 #ifdef _DEBUG
 		entities.push_back(obj->m_objBody->m_boxGeom);
 #endif
-		for (auto path : obj->m_objPaths)
+		for (const auto& path : obj->m_objPaths)
 			entities.push_back(path);
 	}
 

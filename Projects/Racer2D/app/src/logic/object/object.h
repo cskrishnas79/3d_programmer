@@ -23,15 +23,19 @@ public:
 	bool Update();
 	inline void SetSpeed(float speed) { m_speed = speed; }
 
+private:
+	void UpdateOrientation(double nextPos[3], double nextDir[3]);
+
 public:
 	long m_objectId;										// store object id
 	std::shared_ptr<data::Topo> m_objBody;					// stores object shape
 	std::vector<std::shared_ptr<data::Entity> > m_objPaths; // stores object paths
 
 private:
-
+	unsigned int m_currPathIndex;
 	float m_speed;
-	double m_dimHalf[3]; // stores half width, depth and depth of the complete body
+	float m_interval;
+	double m_dimHalf[3]; // stores half width, height and depth of the complete body
 	double m_location[3];
 	double m_direction[3];
 };

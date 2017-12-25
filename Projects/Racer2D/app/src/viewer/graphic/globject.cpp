@@ -74,3 +74,35 @@ bool GLObject::Polygon(const std::shared_ptr<data::Geom>& pGeom)
 		glVertex3d(pts->m_x, pts->m_y, pts->m_z);
 	return true;
 }
+
+// GL Display
+GLDisplay::GLDisplay()
+{
+	// get the previous state
+	glGetDoublev(GL_CURRENT_COLOR, m_color);
+	glGetIntegerv(GL_POLYGON_MODE, m_polygonMode);
+	glGetFloatv(GL_LINE_WIDTH, &m_lineWidth);
+	glGetFloatv(GL_POINT_SIZE, &m_pointSize);
+}
+
+GLDisplay::~GLDisplay()
+{
+	// reset to previous state
+	glLineWidth(m_lineWidth);
+	glPointSize(m_pointSize);
+	glColor3d(m_color[0], m_color[1], m_color[2]);
+	glPolygonMode(GL_FRONT, m_polygonMode[0]);
+}
+
+void GLDisplay::Display(const std::shared_ptr<data::Topo>& pTopo)
+{
+	glColor3d(pTopo->m_display.m_color[0], pTopo->m_display.m_color[1], pTopo->m_display.m_color[2]);
+	glLineWidth(pTopo->m_display.m_lineWidth);
+	glPointSize(pTopo->m_display.m_pointSize);
+
+	glPolygonMode(GL_FRONT, GL_FILL);
+	if (pTopo->m_display.m_mode == data::DisplayType::DISPLY_LINE)
+		glPolygonMode(GL_FRONT, GL_LINE);
+	else if (pTopo->m_display.m_mode == data::DisplayType::DISPLY_POINT)
+		glPolygonMode(GL_FRONT, GL_POINT);
+}

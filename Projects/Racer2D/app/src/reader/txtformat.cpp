@@ -277,7 +277,11 @@ void TxtFormat::SetTransformation(std::ifstream& file, std::shared_ptr<data::Par
 
 				double rotAngleZ = 0.0;
 				std::string::size_type sz;
-				rotAngleZ = std::stof(str, &sz);;
+				rotAngleZ = std::stof(str, &sz);
+
+				// convert from degree to radian
+				constexpr double fact = 3.141592653589 / 180;
+				rotAngleZ *= fact;
 
 				Matrix rotate;
 				rotate.rotateZ(rotAngleZ);
@@ -310,6 +314,14 @@ void TxtFormat::SetDisplayAttributes(std::ifstream& file, std::shared_ptr<data::
 
 				std::string::size_type sz;
 				disply.m_lineWidth = std::stof(str, &sz);
+			}
+			else if (buffer == POINTSIZE)
+			{
+				std::string str(EMPTY_TAG);
+				StrUtils::GetLine(file, str);
+
+				std::string::size_type sz;
+				disply.m_pointSize = std::stof(str, &sz);
 			}
 			else if (buffer == POLYGONMODE)
 			{

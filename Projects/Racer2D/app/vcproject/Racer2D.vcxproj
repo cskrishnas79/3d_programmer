@@ -26,6 +26,7 @@
     <ClCompile Include="..\src\engine\engine.cpp" />
     <ClCompile Include="..\src\logic\logic.cpp" />
     <ClCompile Include="..\src\logic\object\object.cpp" />
+    <ClCompile Include="..\src\logic\object\objectutils.cpp" />
     <ClCompile Include="..\src\math\matrix.cpp" />
     <ClCompile Include="..\src\math\vector.cpp" />
     <ClCompile Include="..\src\Racer2D.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\src\logic\Ilogic.h" />
     <ClInclude Include="..\src\logic\logic.h" />
     <ClInclude Include="..\src\logic\object\object.h" />
+    <ClInclude Include="..\src\logic\object\objectutils.h" />
     <ClInclude Include="..\src\math\matrix.h" />
     <ClInclude Include="..\src\math\vector.h" />
     <ClInclude Include="..\src\reader\format.h" />
