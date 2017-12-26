@@ -7,7 +7,7 @@
 #include "logic\object\object.h"
 #include "logic\object\objectutils.h"
 
-Object::Object(std::shared_ptr<data::Topo>& pBody) : m_objectId(0), m_objBody(pBody), m_speed(0.0),
+Object::Object(const std::shared_ptr<data::Topo>& pBody) : m_objectId(0), m_objBody(pBody), m_speed(0.0),
 										m_interval(0.0), m_currPathIndex(0)
 {
 	m_location[0] = m_location[1] = m_location[2] = 0.0;
@@ -17,6 +17,7 @@ Object::Object(std::shared_ptr<data::Topo>& pBody) : m_objectId(0), m_objBody(pB
 
 Object::~Object()
 {
+	m_collisionTopo.clear();
 }
 
 bool Object::Initialize()
@@ -46,32 +47,44 @@ bool Object::Initialize()
 	double nextPos[3] = { 0.0,0.0,0.0 }, nextDir[3] = { 0.0,0.0,0.0 };
 	std::shared_ptr<data::Entity>& pCurrPath = m_objPaths[m_currPathIndex];
 	bool bRes = ObjectUtils::GetPosAndDirection(pCurrPath, m_interval, m_speed, m_location, nextPos, nextDir);
+	if (bRes == true)
+	{
+		Vector v1(m_location), v2(nextPos);
+		Vector displDir = (v2 - v1);
+		const double* dir = displDir.get();
 
-	Vector v1(m_location), v2(nextPos);
-	Vector displDir = (v2 - v1);
-	const double* dir = displDir.get();
+		Matrix trans;
+		trans.translate(dir[0], (dir[1] + m_dimHalf[1]), (dir[2] + m_dimHalf[2]));
+		m_objBody->Transform(trans);
 
-	Matrix trans;
-	trans.translate(dir[0], (dir[1] + m_dimHalf[1]), (dir[2] + m_dimHalf[2]));
-	m_objBody->Transform(trans);
+		// Set the direction of the object
+		UpdateOrientation(nextPos, nextDir);
 
-	// Set the direction of the object
-	UpdateOrientation(nextPos, nextDir);
-
-	m_location[0] = nextPos[0];	m_location[1] = nextPos[1];	m_location[2] = nextPos[2];
-	m_direction[0] = nextDir[0]; m_direction[1] = nextDir[1]; m_direction[2] = nextDir[2];
-	// Increment the interval
-	m_interval++;
-	return true;
+		m_location[0] = nextPos[0];	m_location[1] = nextPos[1];	m_location[2] = nextPos[2];
+		m_direction[0] = nextDir[0]; m_direction[1] = nextDir[1]; m_direction[2] = nextDir[2];
+		// Increment the interval
+		m_interval++;
+	}
+	return bRes;
 }
 
-void Object::AddObjectPath(std::shared_ptr<data::Entity>& pPath)
+void Object::AddObjectPath(const std::shared_ptr<data::Entity>& pPath)
 {
 	m_objPaths.push_back(pPath);
 }
 
 bool Object::Update()
 {
+	// First retain the state of the topo collided previously
+	std::map<std::shared_ptr<data::Topo>, data::Display>::iterator it = m_collisionTopo.begin();
+	for (; it != m_collisionTopo.end(); ++it)
+	{
+		const std::shared_ptr<data::Topo>& pTopo = (*it).first;
+		data::Display& disply = (*it).second;
+		pTopo->SetDisplay(disply);
+	}
+	m_collisionTopo.clear();
+
 	bool bDirectionChanged = false;
 	std::shared_ptr<data::Entity>& pCurrPath = m_objPaths[m_currPathIndex];
 	double nextPos[3] = { 0.0,0.0,0.0 }, nextDir[3] = { 0.0,0.0,0.0 };
@@ -147,4 +160,20 @@ void Object::UpdateOrientation(double nextPos[3], double nextDir[3])
 		backTrans.translate(nextPos[0], nextPos[1], nextPos[2]);
 		m_objBody->Transform(backTrans);
 	}
+}
+
+void Object::AddCollideTopo(const std::shared_ptr<data::Topo>& pTopo)
+{
+	// if already there in the map just return
+	std::map<std::shared_ptr<data::Topo>, data::Display>::iterator it = m_collisionTopo.find(pTopo);
+	if (it != m_collisionTopo.end())
+		return;
+
+	m_collisionTopo.insert(std::pair<std::shared_ptr<data::Topo>, data::Display>(pTopo, pTopo->m_display));
+
+	// Change the display of the collided topo
+	data::Display disply;
+	disply.m_color[0] = 0.0; disply.m_color[1] = 1.0; disply.m_color[2] = 0.0;
+	disply.m_lineWidth = 2.0f;
+	pTopo->SetDisplay(disply);
 }

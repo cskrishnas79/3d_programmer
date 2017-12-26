@@ -67,6 +67,12 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{2c7c3658-b30c-4bb2-aaee-c076341603f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\collider">
+      <UniqueIdentifier>{7d2dd2d2-9e7a-427a-89d0-da3b855e8deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\collider">
+      <UniqueIdentifier>{6551350c-062f-46d0-88a8-e332700bfb7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Racer2D.cpp">
@@ -122,6 +128,15 @@
     </ClCompile>
     <ClCompile Include="..\src\logic\object\objectutils.cpp">
       <Filter>Source Files\logic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\collider\collider.cpp">
+      <Filter>Source Files\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\collider\geomintersector.cpp">
+      <Filter>Source Files\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\collider\topointersector.cpp">
+      <Filter>Source Files\collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +208,15 @@
     </ClInclude>
     <ClInclude Include="..\src\logic\object\objectutils.h">
       <Filter>Header Files\logic\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\collider\collider.h">
+      <Filter>Header Files\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\collider\geomintersector.h">
+      <Filter>Header Files\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\collider\topointersector.h">
+      <Filter>Header Files\collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 //------------------------------------------------------------------
 #include "logic\logic.h"
 #include "reader\reader.h"
+#include "collider\collider.h"
 
 Logic::Logic()
 {
@@ -20,11 +21,16 @@ bool Logic::Simulate()
 	if (len == 0)
 		return false;
 
+	// First update and than find the collision between objects
+	Collider collider;
 	for (const auto& obj : m_objects)
 	{
 		obj->Update();
+		collider.AddObject(obj);
 	}
-	return true;
+	// Find collision on the updated objects
+	bool bRes = collider.FindCollision();
+	return bRes;
 }
 
 // Start Interface methods implementation

@@ -15,13 +15,14 @@
 class Object
 {
 public:
-	Object(std::shared_ptr<data::Topo>& pBody);
+	Object(const std::shared_ptr<data::Topo>& pBody);
 	~Object();
 
 	bool Initialize();
-	void AddObjectPath(std::shared_ptr<data::Entity>& pPath);
+	void AddObjectPath(const std::shared_ptr<data::Entity>& pPath);
 	bool Update();
 	inline void SetSpeed(float speed) { m_speed = speed; }
+	void AddCollideTopo(const std::shared_ptr<data::Topo>& pTopo);
 
 private:
 	void UpdateOrientation(double nextPos[3], double nextDir[3]);
@@ -38,6 +39,9 @@ private:
 	double m_dimHalf[3]; // stores half width, height and depth of the complete body
 	double m_location[3];
 	double m_direction[3];
+
+	// stores the previous state of the topos before collision
+	std::map<std::shared_ptr<data::Topo>, data::Display> m_collisionTopo;
 };
 #endif // OBJECT_H
 //------------------------------------------------------------------

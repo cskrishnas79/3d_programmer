@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\collider\collider.cpp" />
+    <ClCompile Include="..\src\collider\geomintersector.cpp" />
+    <ClCompile Include="..\src\collider\topointersector.cpp" />
     <ClCompile Include="..\src\data\display.cpp" />
     <ClCompile Include="..\src\data\geom.cpp" />
     <ClCompile Include="..\src\data\topo.cpp" />
@@ -39,6 +42,9 @@
     <ClCompile Include="..\src\viewer\vieweropts.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\collider\collider.h" />
+    <ClInclude Include="..\src\collider\geomintersector.h" />
+    <ClInclude Include="..\src\collider\topointersector.h" />
     <ClInclude Include="..\src\data\data.h" />
     <ClInclude Include="..\src\data\display.h" />
     <ClInclude Include="..\src\data\geom.h" />

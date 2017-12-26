@@ -26,7 +26,7 @@ namespace data
 		Geom();
 		virtual ~Geom();
 		virtual GeomType GetType() const = 0;
-		virtual Geom* Clone() = 0;
+		virtual Geom* Clone() const = 0;
 		EntityType GetEntityType() override;
 	};
 
@@ -36,6 +36,7 @@ namespace data
 
 		Point();
 		Point(double point[]);
+		Point(double x, double y, double z);
 		virtual ~Point();
 		Point(const Point& point);
 		Point& operator=(const Point& point);
@@ -43,7 +44,7 @@ namespace data
 		GeomType GetType() const override;
 		void GetBoundingBox(double min[], double max[]) const override;
 		void Transform(const Matrix& mat) override;
-		Geom* Clone() override;
+		Geom* Clone() const override;
 
 	public:
 		double m_x;
@@ -62,7 +63,7 @@ namespace data
 		GeomType GetType() const override;
 		void GetBoundingBox(double min[], double max[]) const override;
 		void Transform(const Matrix& mat) override;
-		Geom* Clone() override;
+		Geom* Clone() const override;
 
 	public:
 		Point m_p1;
@@ -81,7 +82,7 @@ namespace data
 		GeomType GetType() const override;
 		void GetBoundingBox(double min[], double max[]) const override;
 		void Transform(const Matrix& mat) override;
-		Geom* Clone() override;
+		Geom* Clone() const override;
 
 	public:
 		Point m_center;
@@ -101,7 +102,7 @@ namespace data
 		GeomType GetType() const override;
 		void GetBoundingBox(double min[], double max[]) const override;
 		void Transform(const Matrix& mat) override;
-		Geom* Clone() override;
+		Geom* Clone() const override;
 
 	public:
 		Point m_center;
@@ -119,7 +120,7 @@ namespace data
 		GeomType GetType() const override;
 		void GetBoundingBox(double min[], double max[]) const override;
 		void Transform(const Matrix& mat) override;
-		Geom* Clone() override;
+		Geom* Clone() const override;
 
 	public:
 		std::vector<std::shared_ptr<Point> > m_points;

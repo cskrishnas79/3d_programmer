@@ -30,6 +30,10 @@ namespace data
 	{
 	}
 
+	Point::Point(double x, double y, double z) : m_x(x), m_y(y), m_z(z)
+	{
+	}
+
 	Point::~Point()
 	{
 	}
@@ -63,7 +67,7 @@ namespace data
 		m_x = point[0]; m_y = point[1]; m_z = point[2];
 	}
 
-	Geom* Point::Clone()
+	Geom* Point::Clone() const
 	{
 		Geom* pPoint = new Point(*this);
 		return pPoint;
@@ -118,7 +122,7 @@ namespace data
 		m_p2.Transform(mat);
 	}
 
-	Geom* Line::Clone()
+	Geom* Line::Clone() const
 	{
 		Geom* pLine = new Line(*this);
 		return pLine;
@@ -181,7 +185,7 @@ namespace data
 		m_center.m_z = rec.m_center.m_z;
 		m_width = rec.m_width;
 		m_height = rec.m_height;
-		for (auto pts : rec.m_box)
+		for (const auto& pts : rec.m_box)
 		{
 			double val[3] = { pts->m_x, pts->m_y, pts->m_z };
 			m_box.push_back(std::make_shared<Point>(val));
@@ -195,7 +199,7 @@ namespace data
 		m_center.m_z = rec.m_center.m_z;
 		m_width = rec.m_width;
 		m_height = rec.m_height;
-		for (auto pts : rec.m_box)
+		for (const auto& pts : rec.m_box)
 		{
 			double val[3] = { pts->m_x, pts->m_y, pts->m_z };
 			m_box.push_back(std::make_shared<Point>(val));
@@ -243,7 +247,7 @@ namespace data
 			pts->Transform(mat);
 	}
 
-	Geom* Rectangle::Clone()
+	Geom* Rectangle::Clone() const
 	{
 		Geom* pRectangle = new Rectangle(*this);
 		return pRectangle;
@@ -296,7 +300,7 @@ namespace data
 		m_center.Transform(mat);
 	}
 
-	Geom* Circle::Clone()
+	Geom* Circle::Clone() const
 	{
 		Geom* pCircle = new Circle(*this);
 		return pCircle;
@@ -313,7 +317,7 @@ namespace data
 
 	Polygon::Polygon(const Polygon& poly)
 	{
-		for (auto pts : poly.m_points)
+		for (const auto& pts : poly.m_points)
 		{
 			double val[3] = { pts->m_x, pts->m_y, pts->m_z };
 			m_points.push_back(std::make_shared<Point>(val));
@@ -322,7 +326,7 @@ namespace data
 
 	Polygon& Polygon::operator=(const Polygon& poly)
 	{
-		for (auto pts : poly.m_points)
+		for (const auto& pts : poly.m_points)
 		{
 			double val[3] = { pts->m_x, pts->m_y, pts->m_z };
 			m_points.push_back(std::make_shared<Point>(val));
@@ -369,7 +373,7 @@ namespace data
 			pts->Transform(mat);
 	}
 
-	Geom* Polygon::Clone()
+	Geom* Polygon::Clone() const
 	{
 		Geom* pPolygon = new Polygon(*this);
 		return pPolygon;
