@@ -13,6 +13,7 @@ Logic::Logic()
 
 Logic::~Logic()
 {
+	m_objects.clear();
 }
 
 bool Logic::Simulate()

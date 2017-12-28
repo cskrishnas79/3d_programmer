@@ -22,9 +22,6 @@ Object::~Object()
 
 bool Object::Initialize()
 {
-	if (m_objPaths.size() == 0)
-		return false;
-
 	// Get the bounding box of the body
 	double min[3] = { 0.0,0.0,0.0 }, max[3] = { 0.0,0.0,0.0 };
 	m_objBody->GetBoundingBox(min, max);
@@ -43,6 +40,10 @@ bool Object::Initialize()
 	m_direction[0] = 1.0;
 	m_direction[1] = 0.0;
 	m_direction[2] = 0.0;
+
+	// Even if no path, update the object (case of static objects)
+	if (m_objPaths.size() == 0)
+		return true;
 
 	double nextPos[3] = { 0.0,0.0,0.0 }, nextDir[3] = { 0.0,0.0,0.0 };
 	std::shared_ptr<data::Entity>& pCurrPath = m_objPaths[m_currPathIndex];
@@ -84,6 +85,10 @@ bool Object::Update()
 		pTopo->SetDisplay(disply);
 	}
 	m_collisionTopo.clear();
+
+	// Even if no path, update the object (case of static objects)
+	if (m_objPaths.size() == 0)
+		return true;
 
 	bool bDirectionChanged = false;
 	std::shared_ptr<data::Entity>& pCurrPath = m_objPaths[m_currPathIndex];

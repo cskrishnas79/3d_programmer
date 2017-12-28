@@ -1,0 +1,129 @@
+Objects
+3
+Object
+{
+	Assembly
+	{
+		Name
+		Circle
+		Component
+		{
+			Part
+			{
+				Name
+				Head
+				Shape
+				{
+					Circle
+					Center
+					0.0 0.0 0.0
+					Radius
+					6.0
+				}
+				Transformation
+				{
+					Translate
+					0.0 0.0 0.0
+				}
+				Display
+				{
+					Color
+					1.0 0.0 1.0
+					Line Width
+					2.0
+					Polygon Mode
+					Fill
+				}
+			}
+		}
+	}
+	Path
+	{
+		Part
+		{
+			Name
+			straight line
+			Shape
+			{
+				Line
+				Start
+				-100.0 0.0 0.0
+				End
+				100.0 0.0 0.0
+			}
+			Display
+			{
+				Color
+				0.0 0.0 0.0
+				Line Width
+				2.0
+			}
+		}
+	}	
+	Speed
+	4.0
+}
+Object
+{
+	Part
+	{
+		Name
+		Pole
+		Shape
+		{
+			Rectangle
+			Center
+			0.0 0.0 0.0
+			Width
+			2.0
+			Height
+			50.0
+		}
+		Transformation
+		{
+			Translate
+			0.0 25.0 0.0
+		}
+		Display
+		{
+			Color
+			0.0 0.0 0.0
+			Line Width
+			2.0
+			Polygon Mode
+			Line
+		}
+	}
+}
+Object
+{
+	Part
+	{
+		Name
+		Pole
+		Shape
+		{
+			Rectangle
+			Center
+			0.0 0.0 0.0
+			Width
+			50.0
+			Height
+			2.0
+		}
+		Transformation
+		{
+			Translate
+			-40.0 3.0 0.0
+		}
+		Display
+		{
+			Color
+			0.0 0.0 0.0
+			Line Width
+			2.0
+			Polygon Mode
+			Line
+		}
+	}
+}

@@ -19,7 +19,7 @@ public:
 	bool Intersect(const std::shared_ptr<data::Topo>& pTopo1, const std::shared_ptr<data::Topo>& pTopo2);
 	bool Intersect(const std::shared_ptr<data::Assembly>& pEnt1, const std::shared_ptr<data::Assembly>& pEnt2);
 
-	bool Intersect(const std::shared_ptr<data::Part>& pEnt1, const std::shared_ptr<data::Assembly>& pEnt2);
+	bool Intersect(const std::shared_ptr<data::Part>& pEnt1, const std::shared_ptr<data::Assembly>& pEnt2, bool bDetailCheck=false);
 	bool Intersect(const std::shared_ptr<data::Part>& pEnt1, const std::shared_ptr<data::Part>& pEnt2);
 
 public:

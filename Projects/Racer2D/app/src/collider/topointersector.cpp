@@ -34,7 +34,7 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Topo>& pTopo1, const
 		else if (type2 == data::TopoType::TOPO_PART)
 		{
 			std::shared_ptr<data::Part> pPart = std::dynamic_pointer_cast<data::Part>(pTopo2);
-			bRes = Intersect(pPart, pAssem1);
+			bRes = Intersect(pPart, pAssem1, true);
 		}
 	}
 	else if (type1 == data::TopoType::TOPO_PART)
@@ -43,7 +43,7 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Topo>& pTopo1, const
 		if (type2 == data::TopoType::TOPO_ASSEMBLY)
 		{
 			std::shared_ptr<data::Assembly> pAssem = std::dynamic_pointer_cast<data::Assembly>(pTopo2);
-			bRes = Intersect(pPart1, pAssem);
+			bRes = Intersect(pPart1, pAssem, true);
 		}
 		else if (type2 == data::TopoType::TOPO_PART)
 		{
@@ -71,12 +71,25 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Assembly>& pEnt1, co
 		components2.push_back(part);
 	}
 
-	// now check which parts in the first assembly intersect with parts of second assembly
-	len2 = (int)components2.size();
-	for (auto part2 : components2)
+	// Keep the second assembly and get all the parts from the first assembly and try to see 
+	// which parts are intersecting
+	std::vector<std::shared_ptr<data::Part> > components1;
+	int len1 = (int)pEnt1->m_components.size();
+	for (const auto& part : pEnt1->m_components)
 	{
-		int len1 = (int)pEnt1->m_components.size();
-		for (auto part1 : pEnt1->m_components)
+		bool bIntersect = Intersect(part, pEnt2);
+		if (bIntersect == false)
+			continue;
+
+		components1.push_back(part);
+	}
+
+	// check parts in the first assembly intersecting with parts of second assembly
+	len2 = (int)components2.size();
+	len1 = (int)components1.size();
+	for (const auto& part2 : components2)
+	{
+		for (const auto& part1 : components1)
 		{
 			bool bIntersect = Intersect(part1, part2);
 			if (bIntersect == false)
@@ -88,7 +101,8 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Assembly>& pEnt1, co
 	return bRes;
 }
 
-bool TopoIntersector::Intersect(const std::shared_ptr<data::Part>& pEnt1, const std::shared_ptr<data::Assembly>& pEnt2)
+bool TopoIntersector::Intersect(const std::shared_ptr<data::Part>& pEnt1, const std::shared_ptr<data::Assembly>& pEnt2,
+								bool bDetailCheck)
 {
 	std::shared_ptr<data::Geom>& pGeom1 = pEnt1->m_geom;
 	std::shared_ptr<data::Geom> pCloneGeom1 = Utility::CopyGeom(pGeom1);
@@ -96,6 +110,21 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Part>& pEnt1, const 
 
 	std::shared_ptr<data::Geom>& pBox2 = pEnt2->m_boxGeom;
 	bool bRes = GeomIntersector::Intersect(pCloneGeom1.get(), pBox2.get());
+	if (bRes == false)
+		return bRes;
+
+	if (bDetailCheck == false)
+		return bRes;
+
+	int len = (int)pEnt2->m_components.size();
+	for (const auto& part : pEnt2->m_components)
+	{
+		bool bIntersect = Intersect(pEnt1, part);
+		if (bIntersect == false)
+			continue;
+
+		bRes = bIntersect;
+	}
 	return bRes;
 }
 

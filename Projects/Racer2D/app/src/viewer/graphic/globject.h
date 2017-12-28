@@ -10,7 +10,7 @@
 #include "data\geom.h"
 #include "data\topo.h"
 #include "data\display.h"
-#include "freeglut\include\freeglut.h" // thirdpty library interface
+#include "freeglut\include\gl\freeglut.h" // thirdpty library interface
 
 class GLObject
 {

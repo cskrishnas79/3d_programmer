@@ -222,9 +222,14 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 	for (const auto &pt : ent1.m_box)
 	{
 		double dist = sqr(pt->m_x - pCenter.m_x) + sqr(pt->m_y - pCenter.m_y) + sqr(pt->m_z - pCenter.m_z);
-		if (dist < sqr(radius))
+		if (dist <= sqr(radius))
 			return true;
 	}
+
+	// also check with the center of the rectangle
+	double dist = sqr(ent1.m_center.m_x - pCenter.m_x) + sqr(ent1.m_center.m_y - pCenter.m_y) + sqr(ent1.m_center.m_z - pCenter.m_z);
+	if (dist <= sqr(radius))
+		return true;
 
 	// find the extreme points of the circle along the rectangle direction. Get the box 
 	// of the rectangle since it may have got transformed
@@ -270,8 +275,128 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 		double len1 = Utility::GetProjectedLen(*pt1.get(), *pt2.get(), *pPoint.get());
 		double len2 = Utility::GetProjectedLen(*pt2.get(), *pt3.get(), *pPoint.get());
 
-		if (minDir1 < len1 && len1 < maxDir1 &&	minDir2 < len2 && len2 < maxDir2)
+		if (minDir1 <= len1 && len1 <= maxDir1 && minDir2 <= len2 && len2 <= maxDir2)
 			return true;
+	}
+
+	/* 
+	Case thin and long rectangle intersecting circle in between center and one extreme point,
+	and center of rectangle lie outside circle
+
+						Rec _
+						   | |
+				+ve	cir	3  | |
+						|  | |
+						|  | |
+					cen |  | |
+		-ve	cir	2-------|------- cir 1 +ve
+						|  | |
+						|  | |
+						|  | |
+				-ve	cir 4  | |
+					       | |
+						    -
+	Take the projection of rectangle center on axis (cir 2 - cir 1) and check if the projected distance
+	lies within cir 1 and cir 2. Similarly check on axis (cir 4 - cir 3) in case the rectangle
+	is perpendicular. Also check if the extents of the rectangle at that point lie on one side or on either side.
+	*/
+
+	// Get extreme point of the circle. First point in the extreme is center so ignore it
+	const std::shared_ptr<data::Point>& circ1 = extremes[1];
+	const std::shared_ptr<data::Point>& circ2 = extremes[2];
+	const std::shared_ptr<data::Point>& circ3 = extremes[3];
+	const std::shared_ptr<data::Point>& circ4 = extremes[4];
+
+	// Find along first direction
+	double minEnt2 = 0.0, maxEnt2 = 2 * radius; // Utility::GetProjectedLen(*circ1.get(), *circ2.get(), *circ2.get());
+	double len1 = Utility::GetProjectedLen(*circ1.get(), *circ2.get(), ent1.m_center);
+	if (minEnt2 <= len1 && len1 <= maxEnt2)
+	{
+		// find the min and max distance of the chord at len1. Find the extremes of the rectangle
+		// along the chord which is perpendicular to axis
+		double distance = 0.0;
+		if (len1 > radius)
+			distance = len1 - radius;
+		else
+			distance = radius - len1;
+
+		double theta = acos(distance / radius);
+		double heightFromAxis = radius*sin(theta);
+		minEnt2 = radius - heightFromAxis;
+		maxEnt2 = radius + heightFromAxis;
+
+		int i = 0;
+		double minEnt1 = 0.0, maxEnt1 = 0.0;
+		for (const auto& pPoint : ent1.m_box)
+		{
+			// do only for diagonal points
+			if (i % 2 != 0)
+			{
+				i++;
+				continue;
+			}
+			double len = Utility::GetProjectedLen(*circ3.get(), *circ4.get(), *pPoint.get());
+			if (i == 0)
+			{
+				minEnt1 = maxEnt1 = len; i++;
+				continue;
+			}
+			minEnt1 = MIN(minEnt1, len);
+			maxEnt1 = MAX(maxEnt1, len);
+			i++;
+		}
+
+		if (minEnt1 > maxEnt2)
+			return false;
+		else if (maxEnt1 < minEnt2)
+			return false;
+		return true;
+	}
+
+	// Find along second direction
+	minEnt2 = 0.0, maxEnt2 = 2 * radius; // Utility::GetProjectedLen(*circ3.get(), *circ4.get(), *circ4.get());
+	double len2 = Utility::GetProjectedLen(*circ3.get(), *circ4.get(), ent1.m_center);
+	if (minEnt2 <= len2 && len2 <= maxEnt2)
+	{
+		// find the min and max distance of the chord at len2. Find the extremes of the rectangle
+		// along the chord which perpendicular to axis
+		double distance = 0.0;
+		if (len2 > radius)
+			distance = len2 - radius;
+		else
+			distance = radius - len2;
+
+		double theta = acos(distance / radius);
+		double heightFromAxis = radius*sin(theta);
+		minEnt2 = radius - heightFromAxis;
+		maxEnt2 = radius + heightFromAxis;
+
+		int i = 0;
+		double minEnt1 = 0.0, maxEnt1 = 0.0;
+		for (const auto& pPoint : ent1.m_box)
+		{
+			// do only for diagonal points
+			if (i % 2 != 0)
+			{
+				i++;
+				continue;
+			}
+			double len = Utility::GetProjectedLen(*circ1.get(), *circ2.get(), *pPoint.get());
+			if (i == 0)
+			{
+				minEnt1 = maxEnt1 = len; i++;
+				continue;
+			}
+			minEnt1 = MIN(minEnt1, len);
+			maxEnt1 = MAX(maxEnt1, len);
+			i++;
+		}
+
+		if (minEnt1 > maxEnt2)
+			return false;
+		else if (maxEnt1 < minEnt2)
+			return false;
+		return true;
 	}
 	return false;
 }
@@ -285,15 +410,15 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Polygon
 // Circle intersection with other entities
 bool GeomIntersector::Intersect(const data::Circle& ent1, const data::Circle& ent2)
 {
-	bool bRes = false;
 	const auto sqr = [](const auto &x) { return x * x; };
 	double x = sqr(ent1.m_center.m_x - ent2.m_center.m_x);
 	double y = sqr(ent1.m_center.m_y - ent2.m_center.m_y);
-	double sqrSum = x + y;
+	double z = sqr(ent1.m_center.m_z - ent2.m_center.m_z);
+	double sqrSum = x + y + z;
 	double radSum = sqr(ent1.m_radius + ent2.m_radius);
-	if (sqrSum < radSum)
-		bRes = true;
-	return bRes;
+	if (sqrSum <= radSum)
+		return true;
+	return false;
 }
 
 bool GeomIntersector::Intersect(const data::Circle& ent1, const data::Polygon& ent2)
