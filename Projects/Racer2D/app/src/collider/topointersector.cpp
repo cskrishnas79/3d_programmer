@@ -71,6 +71,10 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Assembly>& pEnt1, co
 		components2.push_back(part);
 	}
 
+	len2 = (int)components2.size();
+	if (len2 == 0)
+		return bRes;
+
 	// Keep the second assembly and get all the parts from the first assembly and try to see 
 	// which parts are intersecting
 	std::vector<std::shared_ptr<data::Part> > components1;
@@ -83,13 +87,12 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Assembly>& pEnt1, co
 
 		components1.push_back(part);
 	}
-
-	// check parts in the first assembly intersecting with parts of second assembly
-	len2 = (int)components2.size();
+	
 	len1 = (int)components1.size();
-	if (len2 == 0 || len1 == 0)
+	if (len1 == 0)
 		return bRes;
 
+	// check parts in the first assembly intersecting with parts of second assembly
 	for (const auto& part2 : components2)
 	{
 		for (const auto& part1 : components1)
