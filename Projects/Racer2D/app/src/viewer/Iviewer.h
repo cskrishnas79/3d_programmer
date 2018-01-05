@@ -10,11 +10,11 @@
 #include "logic\Ilogic.h"
 #include "viewer\vieweropts.h"
 
-class IViewer
+class IViewer : public std::enable_shared_from_this<IViewer>
 {
 public:
-   
-    virtual bool Initialize(const ViewerOpts& vOptions) = 0;
+
+	virtual bool Initialize(const ViewerOpts& vOptions) = 0;
 	virtual bool Play() = 0;
 	virtual bool View(const std::vector<std::shared_ptr<data::Entity> >& objs) = 0;
 	virtual bool Update(const std::vector<std::shared_ptr<data::Entity> >& objs) = 0;

@@ -12,7 +12,7 @@
 class GLGraphic : public IGraphic
 {
 public:
-	GLGraphic(Viewer* pViewer);
+	GLGraphic(const std::shared_ptr<Viewer>& pViewer);
 	~GLGraphic();
 
 	bool Initialize(const ViewerOpts& vOptions) override;

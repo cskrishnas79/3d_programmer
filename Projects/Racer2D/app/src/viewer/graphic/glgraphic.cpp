@@ -65,7 +65,7 @@ void GLGraphic::CloseFunc()
 }
 // End of call back function implementation
 
-GLGraphic::GLGraphic(Viewer* pViewer) : m_xpos(0), m_ypos(0), m_zoom(150.0f), m_bPause(true),
+GLGraphic::GLGraphic(const std::shared_ptr<Viewer>& pViewer) : m_xpos(0), m_ypos(0), m_zoom(150.0f), m_bPause(true),
 										IGraphic(pViewer)
 {
 	m_center[0] = m_center[1] = m_center[2] = 0.0f;
@@ -75,7 +75,6 @@ GLGraphic::~GLGraphic()
 {
 	ClearGL();
 	g_pGraphic = nullptr;
-	m_pViewer = nullptr;
 }
 
 bool GLGraphic::InitializeGL(const ViewerOpts& vOptions)
@@ -109,8 +108,8 @@ bool GLGraphic::ClearGL()
 
 bool GLGraphic::UpdateListerner()
 {
-	if (m_pViewer != nullptr)
-		return m_pViewer->UpdateLogic();
+	if (m_pViewer.expired() == false)
+		return m_pViewer.lock()->UpdateLogic();
 
 	return false;
 }

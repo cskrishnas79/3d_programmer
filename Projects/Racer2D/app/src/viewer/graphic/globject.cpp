@@ -59,7 +59,7 @@ bool GLObject::Rectangle(const std::shared_ptr<data::Geom>& pGeom)
 	if (pRectangle == nullptr)
 		return false;
 
-	for (auto pts : pRectangle->m_box)
+	for (const auto& pts : pRectangle->m_box)
 		glVertex3d(pts->m_x, pts->m_y, pts->m_z);
 	return true;
 }
@@ -70,7 +70,7 @@ bool GLObject::Polygon(const std::shared_ptr<data::Geom>& pGeom)
 	if (pPolygon == nullptr)
 		return false;
 
-	for (auto pts : pPolygon->m_points)
+	for (const auto& pts : pPolygon->m_points)
 		glVertex3d(pts->m_x, pts->m_y, pts->m_z);
 	return true;
 }

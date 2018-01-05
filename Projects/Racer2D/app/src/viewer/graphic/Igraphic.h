@@ -11,7 +11,7 @@
 class IGraphic
 {
 public:
-	IGraphic(Viewer* pViewer) : m_pViewer(pViewer) {}
+	IGraphic(const std::shared_ptr<Viewer>& pViewer) : m_pViewer(pViewer) {}
 	virtual ~IGraphic() {}
 
 	virtual bool Initialize(const ViewerOpts& vOptions) = 0;
@@ -20,7 +20,7 @@ public:
 	virtual bool UpdateGraphic(const std::vector<std::shared_ptr<data::Entity> >& objs) = 0;
 
 protected:
-	Viewer* m_pViewer;
+	std::weak_ptr<Viewer> m_pViewer;
 };
 #endif // IGRAPHIC_H
 //------------------------------------------------------------------

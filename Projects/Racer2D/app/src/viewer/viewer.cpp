@@ -17,8 +17,11 @@ Viewer::~Viewer()
 // Start Interface methods implementation
 bool Viewer::Initialize(const ViewerOpts& vOptions)
 {
-	// Create graphic object and initialize it
-	m_pGraphicObj = std::make_shared<GLGraphic>(this);
+	// Create graphic object and initialize it with viewer as a weak pointer
+	std::shared_ptr<IViewer> pIViewer = this->shared_from_this();
+	std::shared_ptr<Viewer> pViewer = std::dynamic_pointer_cast<Viewer>(pIViewer);
+	
+	m_pGraphicObj = std::make_shared<GLGraphic>(pViewer);
 	if (m_pGraphicObj == nullptr)
 		return false;
 

@@ -9,8 +9,8 @@ Matrix::Matrix()
 {
 	m_val[0] = m_val[5] = m_val[10] = m_val[15] = 1.0f;
 	m_val[1] = m_val[2] = m_val[3] = m_val[4] = m_val[6] \
-		= m_val[7] = m_val[8] = m_val[9] = m_val[11] = m_val[12] \
-		= m_val[13] = m_val[14] = 0.0f;
+	= m_val[7] = m_val[8] = m_val[9] = m_val[11] = m_val[12] \
+	= m_val[13] = m_val[14] = 0.0f;
 }
 
 Matrix::Matrix(double val[16])
