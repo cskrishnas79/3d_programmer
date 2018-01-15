@@ -125,26 +125,6 @@ Matrix Matrix::operator*(const Matrix& mat) const
 
 Matrix& Matrix::operator*=(const Matrix& mat)
 {
-	const double* val = mat.get();
-	double nVal[16] = { 0.0 };
-
-	for (int i = 0; i < 4; ++i) // row
-	{
-		for (int j = 0; j < 4; ++j) // column
-		{
-			double value = 0.0;
-			for (int k = 0; k < 4; ++k)
-			{
-				value += val[i + k * 4] * m_val[k + j * 4];
-			}
-
-			nVal[j * 4 + i] = value;
-		}
-	}
-
-	// now update itself
-	for (int i = 0; i < 16; ++i)
-		m_val[i] = nVal[i];
-
+	*this = (*this)*mat;
 	return (*this);
 }

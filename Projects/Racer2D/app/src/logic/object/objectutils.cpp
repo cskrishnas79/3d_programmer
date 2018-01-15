@@ -19,7 +19,7 @@ bool ObjectUtils::GetPosAndDirection(const std::shared_ptr<data::Entity>& pPath,
 			std::shared_ptr<data::Part> pPart = std::dynamic_pointer_cast<data::Part>(pTopo);
 			std::shared_ptr<data::Geom>& pGeom = pPart->m_geom;
 
-			std::shared_ptr<data::Geom> pCloneGeom = Utility::CopyGeom(pGeom);
+			std::shared_ptr<data::Geom> pCloneGeom = pGeom->Clone();
 			pCloneGeom->Transform(pPart->m_transform);
 			bRes = GetPosAndDirection(pCloneGeom, interval, speed, prevPos, nextPos, dir);
 		}

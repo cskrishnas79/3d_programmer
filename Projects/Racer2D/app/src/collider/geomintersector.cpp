@@ -4,10 +4,11 @@
 //
 //------------------------------------------------------------------
 #include "collider\geomintersector.h"
+#include "collider\geomintersectorutils.h"
 #include "data\utility.h"
 
 // Public methods for Geom
-bool GeomIntersector::Intersect(data::Geom* pGeom1, data::Geom* pGeom2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Geom>& pGeom1, const std::shared_ptr<data::Geom>& pGeom2)
 {
 	bool bRes = false;
 	data::GeomType type1 = pGeom1->GetType();
@@ -15,211 +16,198 @@ bool GeomIntersector::Intersect(data::Geom* pGeom1, data::Geom* pGeom2)
 
 	if (type1 == data::GeomType::GEOM_LINE)
 	{
-		data::Line* pLine1 = dynamic_cast<data::Line*>(pGeom1);
+		std::shared_ptr<data::Line> pLine1 = std::dynamic_pointer_cast<data::Line>(pGeom1);
 		if (type2 == data::GeomType::GEOM_LINE)
 		{
-			data::Line* pLine2 = dynamic_cast<data::Line*>(pGeom2);
-			bRes = Intersect(*pLine1, *pLine2);
+			std::shared_ptr<data::Line> pLine2 = std::dynamic_pointer_cast<data::Line>(pGeom2);
+			bRes = Intersect(pLine1, pLine2);
 		}
 		else if (type2 == data::GeomType::GEOM_RECTANGLE)
 		{
-			data::Rectangle* pRec = dynamic_cast<data::Rectangle*>(pGeom2);
-			bRes = Intersect(*pLine1, *pRec);
+			std::shared_ptr<data::Rectangle> pRec = std::dynamic_pointer_cast<data::Rectangle>(pGeom2);
+			bRes = Intersect(pLine1, pRec);
 		}
 		else if (type2 == data::GeomType::GEOM_CIRCLE)
 		{
-			data::Circle* pCirc = dynamic_cast<data::Circle*>(pGeom2);
-			bRes = Intersect(*pLine1, *pCirc);
+			std::shared_ptr<data::Circle> pCirc = std::dynamic_pointer_cast<data::Circle>(pGeom2);
+			bRes = Intersect(pLine1, pCirc);
 		}
 		else if (type2 == data::GeomType::GEOM_POLYGON)
 		{
-			data::Polygon* pPly = dynamic_cast<data::Polygon*>(pGeom2);
-			bRes = Intersect(*pLine1, *pPly);
+			std::shared_ptr<data::Polygon> pPly = std::dynamic_pointer_cast<data::Polygon>(pGeom2);
+			bRes = Intersect(pLine1, pPly);
 		}
 	}
 	else if (type1 == data::GeomType::GEOM_RECTANGLE)
 	{
-		data::Rectangle* pRec1 = dynamic_cast<data::Rectangle*>(pGeom1);
+		std::shared_ptr<data::Rectangle> pRec1 = std::dynamic_pointer_cast<data::Rectangle>(pGeom1);
 		if (type2 == data::GeomType::GEOM_LINE)
 		{
-			data::Line* pLine = dynamic_cast<data::Line*>(pGeom2);
-			bRes = Intersect(*pLine, *pRec1);
+			std::shared_ptr<data::Line> pLine = std::dynamic_pointer_cast<data::Line>(pGeom2);
+			bRes = Intersect(pLine, pRec1);
 		}
 		else if (type2 == data::GeomType::GEOM_RECTANGLE)
 		{
-			data::Rectangle* pRec2 = dynamic_cast<data::Rectangle*>(pGeom2);
-			bRes = Intersect(*pRec1, *pRec2);
+			std::shared_ptr<data::Rectangle> pRec2 = std::dynamic_pointer_cast<data::Rectangle>(pGeom2);
+			bRes = Intersect(pRec1, pRec2);
 		}
 		else if (type2 == data::GeomType::GEOM_CIRCLE)
 		{
-			data::Circle* pCirc = dynamic_cast<data::Circle*>(pGeom2);
-			bRes = Intersect(*pRec1, *pCirc);
+			std::shared_ptr<data::Circle> pCirc = std::dynamic_pointer_cast<data::Circle>(pGeom2);
+			bRes = Intersect(pRec1, pCirc);
 		}
 		else if (type2 == data::GeomType::GEOM_POLYGON)
 		{
-			data::Polygon* pPly = dynamic_cast<data::Polygon*>(pGeom2);
-			bRes = Intersect(*pRec1, *pPly);
+			std::shared_ptr<data::Polygon> pPly = std::dynamic_pointer_cast<data::Polygon>(pGeom2);
+			bRes = Intersect(pRec1, pPly);
 		}
 	}
 	else if (type1 == data::GeomType::GEOM_CIRCLE)
 	{
-		data::Circle* pCirc1 = dynamic_cast<data::Circle*>(pGeom1);
+		std::shared_ptr<data::Circle> pCirc1 = std::dynamic_pointer_cast<data::Circle>(pGeom1);
 		if (type2 == data::GeomType::GEOM_LINE)
 		{
-			data::Line* pLine = dynamic_cast<data::Line*>(pGeom2);
-			bRes = Intersect(*pLine, *pCirc1);
+			std::shared_ptr<data::Line> pLine = std::dynamic_pointer_cast<data::Line>(pGeom2);
+			bRes = Intersect(pLine, pCirc1);
 		}
 		else if (type2 == data::GeomType::GEOM_RECTANGLE)
 		{
-			data::Rectangle* pRec = dynamic_cast<data::Rectangle*>(pGeom2);
-			bRes = Intersect(*pRec, *pCirc1);
+			std::shared_ptr<data::Rectangle> pRec = std::dynamic_pointer_cast<data::Rectangle>(pGeom2);
+			bRes = Intersect(pRec, pCirc1);
 		}
 		else if (type2 == data::GeomType::GEOM_CIRCLE)
 		{
-			data::Circle* pCirc2 = dynamic_cast<data::Circle*>(pGeom2);
-			bRes = Intersect(*pCirc1, *pCirc2);
+			std::shared_ptr<data::Circle> pCirc2 = std::dynamic_pointer_cast<data::Circle>(pGeom2);
+			bRes = Intersect(pCirc1, pCirc2);
 		}
 		else if (type2 == data::GeomType::GEOM_POLYGON)
 		{
-			data::Polygon* pPly = dynamic_cast<data::Polygon*>(pGeom2);
-			bRes = Intersect(*pCirc1, *pPly);
+			std::shared_ptr<data::Polygon> pPly = std::dynamic_pointer_cast<data::Polygon>(pGeom2);
+			bRes = Intersect(pCirc1, pPly);
 		}
 	}
 	else if (type1 == data::GeomType::GEOM_POLYGON)
 	{
-		data::Polygon* pPly1 = dynamic_cast<data::Polygon*>(pGeom1);
+		std::shared_ptr<data::Polygon> pPly1 = std::dynamic_pointer_cast<data::Polygon>(pGeom1);
 		if (type2 == data::GeomType::GEOM_LINE)
 		{
-			data::Line* pLine = dynamic_cast<data::Line*>(pGeom2);
-			bRes = Intersect(*pLine, *pPly1);
+			std::shared_ptr<data::Line> pLine = std::dynamic_pointer_cast<data::Line>(pGeom2);
+			bRes = Intersect(pLine, pPly1);
 		}
 		else if (type2 == data::GeomType::GEOM_RECTANGLE)
 		{
-			data::Rectangle* pRec = dynamic_cast<data::Rectangle*>(pGeom2);
-			bRes = Intersect(*pRec, *pPly1);
+			std::shared_ptr<data::Rectangle> pRec = std::dynamic_pointer_cast<data::Rectangle>(pGeom2);
+			bRes = Intersect(pRec, pPly1);
 		}
 		else if (type2 == data::GeomType::GEOM_CIRCLE)
 		{
-			data::Circle* pCirc = dynamic_cast<data::Circle*>(pGeom2);
-			bRes = Intersect(*pCirc, *pPly1);
+			std::shared_ptr<data::Circle> pCirc = std::dynamic_pointer_cast<data::Circle>(pGeom2);
+			bRes = Intersect(pCirc, pPly1);
 		}
 		else if (type2 == data::GeomType::GEOM_POLYGON)
 		{
-			data::Polygon* pPly2 = dynamic_cast<data::Polygon*>(pGeom2);
-			bRes = Intersect(*pPly1, *pPly2);
+			std::shared_ptr<data::Polygon> pPly2 = std::dynamic_pointer_cast<data::Polygon>(pGeom2);
+			bRes = Intersect(pPly1, pPly2);
 		}
 	}
 	return bRes;
 }
 
-// Private methods for Geom
-bool GeomIntersector::Contain(const data::Point& ent1, const data::Line& ent2)
+bool GeomIntersector::Contain(const std::shared_ptr<data::Point>& ent1, const std::shared_ptr<data::Line>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
-bool GeomIntersector::Contain(const data::Point& ent1, const data::Rectangle& ent2)
+bool GeomIntersector::Contain(const std::shared_ptr<data::Point>& ent1, const std::shared_ptr<data::Rectangle>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
-bool GeomIntersector::Contain(const data::Point& ent1, const data::Circle& ent2)
+bool GeomIntersector::Contain(const std::shared_ptr<data::Point>& ent1, const std::shared_ptr<data::Circle>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
-bool GeomIntersector::Contain(const data::Point& ent1, const data::Polygon& ent2)
+bool GeomIntersector::Contain(const std::shared_ptr<data::Point>& ent1, const std::shared_ptr<data::Polygon>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
 // Line intersection with other entities
-bool GeomIntersector::Intersect(const data::Line& ent1, const data::Line& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Line>& ent1, const std::shared_ptr<data::Line>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
-bool GeomIntersector::Intersect(const data::Line& ent1, const data::Rectangle& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Line>& ent1, const std::shared_ptr<data::Rectangle>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
-bool GeomIntersector::Intersect(const data::Line& ent1, const data::Circle& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Line>& ent1, const std::shared_ptr<data::Circle>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
-bool GeomIntersector::Intersect(const data::Line& ent1, const data::Polygon& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Line>& ent1, const std::shared_ptr<data::Polygon>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
 // Rectangle intersection with other entities
-bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Rectangle& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Rectangle>& ent1, const std::shared_ptr<data::Rectangle>& ent2)
 {
-	// Get the box of the rectangle since may have got transformed
-	const std::shared_ptr<data::Point>& pt1 = ent1.m_box[0];
-	const std::shared_ptr<data::Point>& pt2 = ent1.m_box[1];
-	const std::shared_ptr<data::Point>& pt3 = ent1.m_box[2];
+	// Find intersection along the first rectangle direction
+	{	
+		const std::shared_ptr<data::Point>& pt1 = ent1->m_box[0];
+		const std::shared_ptr<data::Point>& pt2 = ent1->m_box[1];
+		const std::shared_ptr<data::Point>& pt3 = ent1->m_box[2];
 
-	// Find along the first direction
-	double minEnt1 = 0.0, maxEnt1 = Utility::GetProjectedLen(*pt1.get(), *pt2.get(), *pt2.get());
-	double minEnt2 = 0.0, maxEnt2 = 0.0;
-	int i = 0;
-	for (const auto& pPoint : ent2.m_box)
-	{
-		double len = Utility::GetProjectedLen(*pt1.get(), *pt2.get(), *pPoint.get());
-		if (i == 0)
-		{
-			minEnt2 = maxEnt2 = len; i++;
-			continue;
-		}
-		minEnt2 = MIN(minEnt2, len);
-		maxEnt2 = MAX(maxEnt2, len);
+		// Find along the first direction
+		bool bRes = GeomIntersectorUtils::IsOveralapping(pt1, pt2, ent2->m_box);
+		if (bRes == false)
+			return bRes;
+
+		// Find along the second direction
+		bRes = GeomIntersectorUtils::IsOveralapping(pt2, pt3, ent2->m_box);
+		if (bRes == false)
+			return bRes;
 	}
 
-	if (minEnt2 > maxEnt1)
-		return false;
-	else if (maxEnt2 < minEnt1)
-		return false;
+	// now along the second rectangle direction
+	{		
+		const std::shared_ptr<data::Point>& pt1 = ent2->m_box[0];
+		const std::shared_ptr<data::Point>& pt2 = ent2->m_box[1];
+		const std::shared_ptr<data::Point>& pt3 = ent2->m_box[2];
 
-	// Find along the second direction
-	minEnt1 = 0.0;	maxEnt1 = Utility::GetProjectedLen(*pt2.get(), *pt3.get(), *pt3.get());
-	minEnt2 = 0.0, maxEnt2 = 0.0, i = 0;
-	for (const auto& pPoint : ent2.m_box)
-	{
-		double len = Utility::GetProjectedLen(*pt2.get(), *pt3.get(), *pPoint.get());
-		if (i == 0)
-		{
-			minEnt2 = maxEnt2 = len; i++;
-			continue;
-		}
-		minEnt2 = MIN(minEnt2, len);
-		maxEnt2 = MAX(maxEnt2, len);
+		// Find along the first direction
+		bool bRes = GeomIntersectorUtils::IsOveralapping(pt1, pt2, ent1->m_box);
+		if (bRes == false)
+			return bRes;
+
+		// Find along the second direction
+		bRes = GeomIntersectorUtils::IsOveralapping(pt2, pt3, ent1->m_box);
+		if (bRes == false)
+			return bRes;
 	}
-
-	if (minEnt2 > maxEnt1)
-		return false;
-	else if (maxEnt2 < minEnt1)
-		return false;
 	return true;
 }
 
-bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Rectangle>& ent1, const std::shared_ptr<data::Circle>& ent2)
 {
-	double radius = ent2.m_radius;
-	const data::Point& pCenter = ent2.m_center;
+	double radius = ent2->m_radius;
+	const data::Point& pCenter = ent2->m_center;
 	// check if the corners of rectangle lies inside circle
 	const auto sqr = [](const auto &x) {return x * x; };
-	for (const auto &pt : ent1.m_box)
+	for (const auto &pt : ent1->m_box)
 	{
 		double dist = sqr(pt->m_x - pCenter.m_x) + sqr(pt->m_y - pCenter.m_y) + sqr(pt->m_z - pCenter.m_z);
 		if (dist <= sqr(radius))
@@ -227,15 +215,15 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 	}
 
 	// also check with the center of the rectangle
-	double dist = sqr(ent1.m_center.m_x - pCenter.m_x) + sqr(ent1.m_center.m_y - pCenter.m_y) + sqr(ent1.m_center.m_z - pCenter.m_z);
+	double dist = sqr(ent1->m_center.m_x - pCenter.m_x) + sqr(ent1->m_center.m_y - pCenter.m_y) + sqr(ent1->m_center.m_z - pCenter.m_z);
 	if (dist <= sqr(radius))
 		return true;
 
 	// find the extreme points of the circle along the rectangle direction. Get the box 
 	// of the rectangle since it may have got transformed
-	const std::shared_ptr<data::Point>& pt1 = ent1.m_box[0];
-	const std::shared_ptr<data::Point>& pt2 = ent1.m_box[1];
-	const std::shared_ptr<data::Point>& pt3 = ent1.m_box[2];
+	const std::shared_ptr<data::Point>& pt1 = ent1->m_box[0];
+	const std::shared_ptr<data::Point>& pt2 = ent1->m_box[1];
+	const std::shared_ptr<data::Point>& pt3 = ent1->m_box[2];
 
 	std::vector<std::shared_ptr<data::Point> > extremes;
 
@@ -268,12 +256,12 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 	extremes.push_back(std::make_shared<data::Point>(cen4));
 
 	// Project the extreme points and see if it lies in between the extremes of rectangle
-	double minDir1 = 0.0, maxDir1 = Utility::GetProjectedLen(*pt1.get(), *pt2.get(), *pt2.get());
-	double minDir2 = 0.0, maxDir2 = Utility::GetProjectedLen(*pt2.get(), *pt3.get(), *pt3.get());
+	double minDir1 = 0.0, maxDir1 = Utility::GetProjectedLen(pt1, pt2, pt2);
+	double minDir2 = 0.0, maxDir2 = Utility::GetProjectedLen(pt2, pt3, pt3);
 	for (const auto& pPoint : extremes)
 	{
-		double len1 = Utility::GetProjectedLen(*pt1.get(), *pt2.get(), *pPoint.get());
-		double len2 = Utility::GetProjectedLen(*pt2.get(), *pt3.get(), *pPoint.get());
+		double len1 = Utility::GetProjectedLen(pt1, pt2, pPoint);
+		double len2 = Utility::GetProjectedLen(pt2, pt3, pPoint);
 
 		if (minDir1 <= len1 && len1 <= maxDir1 && minDir2 <= len2 && len2 <= maxDir2)
 			return true;
@@ -307,13 +295,14 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 	const std::shared_ptr<data::Point>& circ3 = extremes[3];
 	const std::shared_ptr<data::Point>& circ4 = extremes[4];
 
+	std::shared_ptr<data::Point> pRecCenter = std::make_shared<data::Point>(ent1->m_center);
 	// Find along first direction
-	double minEnt2 = 0.0, maxEnt2 = 2 * radius; // Utility::GetProjectedLen(*circ1.get(), *circ2.get(), *circ2.get());
-	double len1 = Utility::GetProjectedLen(*circ1.get(), *circ2.get(), ent1.m_center);
-	if (minEnt2 <= len1 && len1 <= maxEnt2)
+	double dia = 2 * radius;
+	double len1 = Utility::GetProjectedLen(circ1, circ2, pRecCenter);
+	if (0.0 <= len1 && len1 <= dia)
 	{
 		// find the min and max distance of the chord at len1. Find the extremes of the rectangle
-		// along the chord which is perpendicular to axis
+		// along the chord perpendicular to axis
 		double distance = 0.0;
 		if (len1 > radius)
 			distance = len1 - radius;
@@ -322,30 +311,11 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 
 		double theta = acos(distance / radius);
 		double heightFromAxis = radius*sin(theta);
-		minEnt2 = radius - heightFromAxis;
-		maxEnt2 = radius + heightFromAxis;
+		double minEnt2 = radius - heightFromAxis;
+		double maxEnt2 = radius + heightFromAxis;
 
-		int i = 0;
 		double minEnt1 = 0.0, maxEnt1 = 0.0;
-		for (const auto& pPoint : ent1.m_box)
-		{
-			// do only for diagonal points
-			if (i % 2 != 0)
-			{
-				i++;
-				continue;
-			}
-			double len = Utility::GetProjectedLen(*circ3.get(), *circ4.get(), *pPoint.get());
-			if (i == 0)
-			{
-				minEnt1 = maxEnt1 = len; i++;
-				continue;
-			}
-			minEnt1 = MIN(minEnt1, len);
-			maxEnt1 = MAX(maxEnt1, len);
-			i++;
-		}
-
+		GeomIntersectorUtils::GetMinMaxLen(circ3, circ4, ent1->m_box, minEnt1, maxEnt1);
 		if (minEnt1 > maxEnt2)
 			return false;
 		else if (maxEnt1 < minEnt2)
@@ -354,12 +324,11 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 	}
 
 	// Find along second direction
-	minEnt2 = 0.0, maxEnt2 = 2 * radius; // Utility::GetProjectedLen(*circ3.get(), *circ4.get(), *circ4.get());
-	double len2 = Utility::GetProjectedLen(*circ3.get(), *circ4.get(), ent1.m_center);
-	if (minEnt2 <= len2 && len2 <= maxEnt2)
+	double len2 = Utility::GetProjectedLen(circ3, circ4, pRecCenter);
+	if (0.0 <= len2 && len2 <= dia)
 	{
 		// find the min and max distance of the chord at len2. Find the extremes of the rectangle
-		// along the chord which perpendicular to axis
+		// along the chord perpendicular to axis
 		double distance = 0.0;
 		if (len2 > radius)
 			distance = len2 - radius;
@@ -368,30 +337,11 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 
 		double theta = acos(distance / radius);
 		double heightFromAxis = radius*sin(theta);
-		minEnt2 = radius - heightFromAxis;
-		maxEnt2 = radius + heightFromAxis;
+		double minEnt2 = radius - heightFromAxis;
+		double maxEnt2 = radius + heightFromAxis;
 
-		int i = 0;
 		double minEnt1 = 0.0, maxEnt1 = 0.0;
-		for (const auto& pPoint : ent1.m_box)
-		{
-			// do only for diagonal points
-			if (i % 2 != 0)
-			{
-				i++;
-				continue;
-			}
-			double len = Utility::GetProjectedLen(*circ1.get(), *circ2.get(), *pPoint.get());
-			if (i == 0)
-			{
-				minEnt1 = maxEnt1 = len; i++;
-				continue;
-			}
-			minEnt1 = MIN(minEnt1, len);
-			maxEnt1 = MAX(maxEnt1, len);
-			i++;
-		}
-
+		GeomIntersectorUtils::GetMinMaxLen(circ1, circ2, ent1->m_box, minEnt1, maxEnt1);
 		if (minEnt1 > maxEnt2)
 			return false;
 		else if (maxEnt1 < minEnt2)
@@ -401,34 +351,34 @@ bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Circle&
 	return false;
 }
 
-bool GeomIntersector::Intersect(const data::Rectangle& ent1, const data::Polygon& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Rectangle>& ent1, const std::shared_ptr<data::Polygon>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
 // Circle intersection with other entities
-bool GeomIntersector::Intersect(const data::Circle& ent1, const data::Circle& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Circle>& ent1, const std::shared_ptr<data::Circle>& ent2)
 {
 	const auto sqr = [](const auto &x) { return x * x; };
-	double x = sqr(ent1.m_center.m_x - ent2.m_center.m_x);
-	double y = sqr(ent1.m_center.m_y - ent2.m_center.m_y);
-	double z = sqr(ent1.m_center.m_z - ent2.m_center.m_z);
+	double x = sqr(ent1->m_center.m_x - ent2->m_center.m_x);
+	double y = sqr(ent1->m_center.m_y - ent2->m_center.m_y);
+	double z = sqr(ent1->m_center.m_z - ent2->m_center.m_z);
 	double sqrSum = x + y + z;
-	double radSum = sqr(ent1.m_radius + ent2.m_radius);
+	double radSum = sqr(ent1->m_radius + ent2->m_radius);
 	if (sqrSum <= radSum)
 		return true;
 	return false;
 }
 
-bool GeomIntersector::Intersect(const data::Circle& ent1, const data::Polygon& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Circle>& ent1, const std::shared_ptr<data::Polygon>& ent2)
 {
 	bool bRes = false;
 	return bRes;
 }
 
 // Polygon intersection with other entities
-bool GeomIntersector::Intersect(const data::Polygon& ent1, const data::Polygon& ent2)
+bool GeomIntersector::Intersect(const std::shared_ptr<data::Polygon>& ent1, const std::shared_ptr<data::Polygon>& ent2)
 {
 	bool bRes = false;
 	return bRes;

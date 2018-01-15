@@ -33,7 +33,7 @@ bool Collider::FindCollision()
 		{
 			const std::shared_ptr<Object>& pObj2 = m_objects[j];
 
-			bool bRes = GeomIntersector::Intersect(pObj1->m_objBody->m_boxGeom.get(), pObj2->m_objBody->m_boxGeom.get());
+			bool bRes = GeomIntersector::Intersect(pObj1->m_objBody->m_boxGeom, pObj2->m_objBody->m_boxGeom);
 			if (bRes == false)
 				continue;
 

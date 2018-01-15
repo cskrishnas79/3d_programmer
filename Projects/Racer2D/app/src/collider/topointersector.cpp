@@ -111,11 +111,11 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Part>& pEnt1, const 
 								bool bDetailCheck)
 {
 	std::shared_ptr<data::Geom>& pGeom1 = pEnt1->m_geom;
-	std::shared_ptr<data::Geom> pCloneGeom1 = Utility::CopyGeom(pGeom1);
+	std::shared_ptr<data::Geom> pCloneGeom1 = pGeom1->Clone(); // Utility::CopyGeom(pGeom1);
 	pCloneGeom1->Transform(pEnt1->m_transform);
 
 	std::shared_ptr<data::Geom>& pBox2 = pEnt2->m_boxGeom;
-	bool bRes = GeomIntersector::Intersect(pCloneGeom1.get(), pBox2.get());
+	bool bRes = GeomIntersector::Intersect(pCloneGeom1, pBox2);
 	if (bRes == false)
 		return bRes;
 
@@ -140,13 +140,13 @@ bool TopoIntersector::Intersect(const std::shared_ptr<data::Part>& pEnt1, const 
 	std::shared_ptr<data::Geom>& pGeom2 = pEnt2->m_geom;
 
 	// create copy, transform and then find intersection
-	std::shared_ptr<data::Geom> pCloneGeom1 = Utility::CopyGeom(pGeom1);
-	std::shared_ptr<data::Geom> pCloneGeom2 = Utility::CopyGeom(pGeom2);
+	std::shared_ptr<data::Geom> pCloneGeom1 = pGeom1->Clone(); // Utility::CopyGeom(pGeom1);
+	std::shared_ptr<data::Geom> pCloneGeom2 = pGeom2->Clone(); // Utility::CopyGeom(pGeom2);
 
 	pCloneGeom1->Transform(pEnt1->m_transform);
 	pCloneGeom2->Transform(pEnt2->m_transform);
 
-	bool bRes = GeomIntersector::Intersect(pCloneGeom1.get(), pCloneGeom2.get());
+	bool bRes = GeomIntersector::Intersect(pCloneGeom1, pCloneGeom2);
 	if (bRes == true)
 	{
 		std::shared_ptr<data::Topo> pTopo1 = std::dynamic_pointer_cast<data::Topo>(pEnt1);

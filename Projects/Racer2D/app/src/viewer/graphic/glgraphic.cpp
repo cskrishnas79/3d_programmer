@@ -241,7 +241,6 @@ bool GLGraphic::DrawGeom(const std::shared_ptr<data::Geom>& pGeom)
 		GLObject glObj(GL_POLYGON);
 		bRes = glObj.Polygon(pGeom);
 	}
-
 	return bRes;
 }
 
@@ -344,7 +343,7 @@ bool GLGraphic::UpdateGraphic(const std::vector<std::shared_ptr<data::Entity> >&
 
 	glNewList(m_objList, GL_COMPILE);
 	{
-		for (auto obj : objs)
+		for (const auto& obj : objs)
 			Draw(obj);
 	}
 	glEndList();

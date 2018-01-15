@@ -67,9 +67,9 @@ namespace data
 		m_x = point[0]; m_y = point[1]; m_z = point[2];
 	}
 
-	Geom* Point::Clone() const
+	std::shared_ptr<Geom> Point::Clone() const
 	{
-		Geom* pPoint = new Point(*this);
+		std::shared_ptr<Geom> pPoint = std::make_shared<Point>(*this);
 		return pPoint;
 	}
 	//------------------------------------------------------------------
@@ -122,9 +122,9 @@ namespace data
 		m_p2.Transform(mat);
 	}
 
-	Geom* Line::Clone() const
+	std::shared_ptr<Geom> Line::Clone() const
 	{
-		Geom* pLine = new Line(*this);
+		std::shared_ptr<Geom> pLine = std::make_shared<Line>(*this);
 		return pLine;
 	}
 	//------------------------------------------------------------------
@@ -247,9 +247,9 @@ namespace data
 			pts->Transform(mat);
 	}
 
-	Geom* Rectangle::Clone() const
+	std::shared_ptr<Geom> Rectangle::Clone() const
 	{
-		Geom* pRectangle = new Rectangle(*this);
+		std::shared_ptr<Geom> pRectangle = std::make_shared<Rectangle>(*this);
 		return pRectangle;
 	}
 	//------------------------------------------------------------------
@@ -300,9 +300,9 @@ namespace data
 		m_center.Transform(mat);
 	}
 
-	Geom* Circle::Clone() const
+	std::shared_ptr<Geom> Circle::Clone() const
 	{
-		Geom* pCircle = new Circle(*this);
+		std::shared_ptr<Geom> pCircle = std::make_shared<Circle>(*this);
 		return pCircle;
 	}
 	//------------------------------------------------------------------
@@ -373,9 +373,9 @@ namespace data
 			pts->Transform(mat);
 	}
 
-	Geom* Polygon::Clone() const
+	std::shared_ptr<Geom> Polygon::Clone() const
 	{
-		Geom* pPolygon = new Polygon(*this);
+		std::shared_ptr<Geom> pPolygon = std::make_shared<Polygon>(*this);
 		return pPolygon;
 	}
 }

@@ -66,7 +66,7 @@ namespace data
 
 	void Part::GetBoundingBox(double min[], double max[]) const
 	{
-		std::shared_ptr<data::Geom> pCloneGeom = Utility::CopyGeom(m_geom);
+		std::shared_ptr<data::Geom> pCloneGeom = m_geom->Clone();
 		pCloneGeom->Transform(m_transform);
 		pCloneGeom->GetBoundingBox(min, max);
 	}

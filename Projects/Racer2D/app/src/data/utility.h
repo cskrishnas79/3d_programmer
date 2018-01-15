@@ -14,10 +14,8 @@ class Utility
 {
 public:
 
-	static std::shared_ptr<data::Geom> CopyGeom(const std::shared_ptr<data::Geom>& pGeom);
-
-	static double GetProjectedLen(const data::Point& pPoint1, const data::Point& pPoint2, 
-								const data::Point& pPoint);
+	static double GetProjectedLen(const std::shared_ptr<data::Point>& pPoint1, 
+				const std::shared_ptr<data::Point>& pPoint2, const std::shared_ptr<data::Point>& pPoint);
 };
 #endif // UTILITY_H
 //------------------------------------------------------------------

@@ -138,6 +138,9 @@
     <ClCompile Include="..\src\collider\topointersector.cpp">
       <Filter>Source Files\collider</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\collider\geomintersectorutils.cpp">
+      <Filter>Source Files\collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\math\vector.h">
@@ -216,6 +219,9 @@
       <Filter>Header Files\collider</Filter>
     </ClInclude>
     <ClInclude Include="..\src\collider\topointersector.h">
+      <Filter>Header Files\collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\collider\geomintersectorutils.h">
       <Filter>Header Files\collider</Filter>
     </ClInclude>
   </ItemGroup>
